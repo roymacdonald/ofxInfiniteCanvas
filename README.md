@@ -1,10 +1,10 @@
 #ofx2DCam
 Interactive ortoghraphic camera addon for openFrameworks.
 
-Inspired by 3D CAD software's left, right, front, back, top, bottom.
+Inspired by 3D CAD software's left, right, front, back, top, bottom ortho views.
 
 
-###usage
+###Usage
 It is really simple to use, quite much as ofEasyCam.
 Check the examples.
 
