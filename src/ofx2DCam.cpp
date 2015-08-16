@@ -89,7 +89,7 @@ void ofx2DCam::begin(ofRectangle _viewport){
     ofRotateY(orientation.y);
     
     ofTranslate(translation*orientationMatrix);
-    ofScale(scale,scale);
+    ofScale(scale,scale,scale);
     
 }
 //----------------------------------------
