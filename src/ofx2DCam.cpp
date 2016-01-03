@@ -87,7 +87,7 @@ void ofx2DCam::begin(ofRectangle _viewport){
     ofPushMatrix();
     ofRotateX(orientation.x);
     ofRotateY(orientation.y);
-    
+  
     ofTranslate(translation*orientationMatrix);
     ofScale(scale,scale,scale);
     
@@ -220,6 +220,10 @@ void ofx2DCam::updateMouse(){
 }
 //----------------------------------------
 void ofx2DCam::update(ofEventArgs & args){
+    update();
+}
+//----------------------------------------
+void ofx2DCam::update(){
     if(bMouseInputEnabled){
         if(bApplyInertia){
             move *= drag;
@@ -233,10 +237,19 @@ void ofx2DCam::update(ofEventArgs & args){
             translation += ofVec3f(move.x , move.y, 0);
         }else if(bDoScale){
             scale+= move.z;
+            ofVec3f m(ofGetMouseX(), ofGetMouseY());
+            ofVec3f s = m - prevTranslation - ofVec3f(viewport.x, viewport.y);
+            s = s*orientationMatrix;
+            s /= prevScale;
+           // cout << s - screenToWorld(m) << endl;
+            translation += s - screenToWorld(m);
         }
         if(!bApplyInertia){
             move = ofVec3f::zero();
         }
+        prevScale = scale;
+        prevTranslation = translation;
+        prevMove = move;
     }
 }
 //----------------------------------------

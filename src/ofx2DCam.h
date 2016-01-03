@@ -50,6 +50,14 @@ public:
     
     float getNearClip(){return nearClip;}
     float getFarClip(){return farClip;}
+    
+    void mousePressed(ofMouseEventArgs & mouse);
+    void mouseReleased(ofMouseEventArgs & mouse);
+    void mouseDragged(ofMouseEventArgs & mouse);
+    void mouseScrolled(ofMouseEventArgs & mouse);
+    
+    void update();
+    
 protected:
 
     ofVec3f orientation;
@@ -64,10 +72,10 @@ protected:
     bool bEventsSet;
     
     float drag;
-    ofVec3f move;
-    float scale;
+    ofVec3f move, prevMove;
+    float scale, prevScale;
     
-    ofVec3f translation;
+    ofVec3f translation, prevTranslation;
     
     float sensitivityXY;
     float sensitivityZ;
@@ -79,10 +87,7 @@ protected:
     float farClip, nearClip;
 
     void update(ofEventArgs & args);
-    void mousePressed(ofMouseEventArgs & mouse);
-    void mouseReleased(ofMouseEventArgs & mouse);
-    void mouseDragged(ofMouseEventArgs & mouse);
-    void mouseScrolled(ofMouseEventArgs & mouse);
+    
     void updateMouse();
     
     ofMatrix4x4 orientationMatrix;
