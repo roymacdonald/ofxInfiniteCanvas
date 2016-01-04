@@ -59,6 +59,11 @@ public:
     void update();
     void drawDebug();
     
+    void setDragSensitivity(float s);
+    void  setScrollSensitivity(float s);
+    float getScrollSensitivity(){return scrollSensitivity;}
+    float getDragSensitivity(){return dragSensitivity;}
+    
 protected:
 
     ofVec3f orientation;
@@ -77,8 +82,7 @@ protected:
     
     ofVec3f translation, clicTranslation;
     
-    float sensitivityXY;
-    float sensitivityZ;
+    float dragSensitivity, scrollSensitivity;
     
     ofVec2f prevMouse, clicPoint;
  

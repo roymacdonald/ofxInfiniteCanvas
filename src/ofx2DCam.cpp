@@ -43,8 +43,6 @@ ofx2DCam::ofx2DCam(){
     setLookAt(OFX2DCAM_FRONT);
     lastTap	= 0;
     drag = 0.9f;
-    sensitivityXY = .5f;
-    sensitivityZ= .001f;
     
     bApplyInertia =false;
     bDoTranslate = false;
@@ -54,6 +52,9 @@ ofx2DCam::ofx2DCam(){
     
     farClip = 2000;
     nearClip = -1000;
+    
+    dragSensitivity = 1;
+    scrollSensitivity = 10;
     
     reset();
 
@@ -108,7 +109,13 @@ void ofx2DCam::setFarClip(float far){
 void ofx2DCam::setNearClip(float near){
     nearClip = near;
 }
-
+//----------------------------------------
+void ofx2DCam::setDragSensitivity(float s){
+    dragSensitivity = s;}
+//----------------------------------------
+void ofx2DCam::setScrollSensitivity(float s){
+    scrollSensitivity = s;
+}
 //----------------------------------------
 void ofx2DCam::setLookAt(LookAt l){
     bool bUpdateMatrix = false;
@@ -179,7 +186,10 @@ void ofx2DCam::mousePressed(ofMouseEventArgs & mouse){
         bDoTranslate =(mouse.button == OF_MOUSE_BUTTON_LEFT);
         bDoScale =(mouse.button == OF_MOUSE_BUTTON_RIGHT);
         bApplyInertia = false;
-        clicPoint = screenToWorld(mouse);
+        clicPoint = mouse - translation - ofVec3f(viewport.x, viewport.y);
+        clicPoint /= scale;
+
+        //clicPoint = screenToWorld(mouse);
         clicTranslation = translation;
         clicScale = scale;
     }
@@ -206,11 +216,12 @@ void ofx2DCam::mouseDragged(ofMouseEventArgs & mouse){
 }
 //----------------------------------------
 void ofx2DCam::mouseScrolled(ofMouseEventArgs & mouse){
-    move.z = mouse.scrollY * sensitivityZ;
+    move.z = scrollSensitivity * mouse.scrollY / ofGetHeight();
     bDoTranslate = false;
     bDoScale = true;
+    clicPoint = ofVec2f(ofGetMouseX(), ofGetMouseY()) - translation - ofVec3f(viewport.x, viewport.y);
+    clicPoint /= scale;
 
-    clicPoint = screenToWorld(ofVec3f(ofGetMouseX(), ofGetMouseY()));
     clicScale = scale;
     clicTranslation = translation;
 }
@@ -218,7 +229,7 @@ void ofx2DCam::mouseScrolled(ofMouseEventArgs & mouse){
 void ofx2DCam::updateMouse(){
         move = ofVec3f::zero();
         if(bDoScale){
-            move.z = mouseVel.y * sensitivityZ;
+            move.z = dragSensitivity * mouseVel.y /ofGetHeight();
         }else if(bDoTranslate){
             move.x = mouseVel.x ;
             move.y = mouseVel.y;
