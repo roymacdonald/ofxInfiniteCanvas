@@ -57,6 +57,7 @@ public:
     void mouseScrolled(ofMouseEventArgs & mouse);
     
     void update();
+    void drawDebug();
     
 protected:
 
@@ -70,17 +71,16 @@ protected:
     bool bMouseInputEnabled;
     bool bDistanceSet;
     bool bEventsSet;
-    
     float drag;
-    ofVec3f move, prevMove;
-    float scale, prevScale;
+    ofVec3f move;
+    float scale, clicScale;
     
-    ofVec3f translation, prevTranslation;
+    ofVec3f translation, clicTranslation;
     
     float sensitivityXY;
     float sensitivityZ;
     
-    ofVec2f prevMouse;
+    ofVec2f prevMouse, clicPoint;
  
     ofVec2f mouseVel;
     

@@ -76,7 +76,6 @@ void ofx2DCam::reset(){
     bDoScale = false;
     bApplyInertia = false;
     bDoTranslate = false;
-    
 }
 //----------------------------------------
 void ofx2DCam::begin(ofRectangle _viewport){
@@ -180,6 +179,9 @@ void ofx2DCam::mousePressed(ofMouseEventArgs & mouse){
         bDoTranslate =(mouse.button == OF_MOUSE_BUTTON_LEFT);
         bDoScale =(mouse.button == OF_MOUSE_BUTTON_RIGHT);
         bApplyInertia = false;
+        clicPoint = screenToWorld(mouse);
+        clicTranslation = translation;
+        clicScale = scale;
     }
 }
 //----------------------------------------
@@ -204,9 +206,13 @@ void ofx2DCam::mouseDragged(ofMouseEventArgs & mouse){
 }
 //----------------------------------------
 void ofx2DCam::mouseScrolled(ofMouseEventArgs & mouse){
-    move.z = mouse.y * 30 * sensitivityZ;
+    move.z = mouse.scrollY * sensitivityZ;
     bDoTranslate = false;
     bDoScale = true;
+
+    clicPoint = screenToWorld(ofVec3f(ofGetMouseX(), ofGetMouseY()));
+    clicScale = scale;
+    clicTranslation = translation;
 }
 //----------------------------------------
 void ofx2DCam::updateMouse(){
@@ -237,20 +243,19 @@ void ofx2DCam::update(){
             translation += ofVec3f(move.x , move.y, 0);
         }else if(bDoScale){
             scale+= move.z;
-            ofVec3f m(ofGetMouseX(), ofGetMouseY());
-            ofVec3f s = m - prevTranslation - ofVec3f(viewport.x, viewport.y);
-            s = s*orientationMatrix;
-            s /= prevScale;
-           // cout << s - screenToWorld(m) << endl;
-            translation += s - screenToWorld(m);
+            translation = clicTranslation - clicPoint*(scale - clicScale);
         }
         if(!bApplyInertia){
             move = ofVec3f::zero();
         }
-        prevScale = scale;
-        prevTranslation = translation;
-        prevMove = move;
     }
+}
+//----------------------------------------
+void ofx2DCam::drawDebug(){
+string m = "translation: " + ofToString(translation) + "\n";
+    m += "scale: " + ofToString(scale) + "\n";
+    m += "clic point: " + ofToString(clicPoint) + "\n";
+    ofDrawBitmapString(m, 0, 20);
 }
 //----------------------------------------
 ofVec3f ofx2DCam::screenToWorld(ofVec3f screen){
