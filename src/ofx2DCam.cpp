@@ -42,23 +42,22 @@ static const unsigned long doubleclickTime = 300;
 ofx2DCam::ofx2DCam(){
     setLookAt(OFX2DCAM_FRONT);
     lastTap	= 0;
-    drag = 0.9f;
     
     bApplyInertia =false;
     bDoTranslate = false;
 
     bDistanceSet = false;
     bDoScale = false;
-    
-    farClip = 2000;
-    nearClip = -1000;
-    
-    dragSensitivity = 1;
-    scrollSensitivity = 10;
-    
+  
     reset();
     parameters.setName("ofx2Dcam");
     parameters.add(bEnableMouse.set("Enable Mouse Input", false));
+    parameters.add(dragSensitivity.set("Drag Sensitivity", 1, 0, 3));
+    parameters.add(scrollSensitivity.set("Scroll Sensitivity", 10, 0, 30));
+    parameters.add(drag.set("Drag", 0.9, 0, 1));
+    parameters.add(farClip.set("Far Clip", 2000, 5000, 10000));
+    parameters.add(nearClip.set("Near Clip", -1000, -5000, 10000));
+    
     bEnableMouse.addListener(this, &ofx2DCam::enableMouseInputCB);
     enableMouseInput();
 

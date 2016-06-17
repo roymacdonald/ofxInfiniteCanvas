@@ -87,8 +87,7 @@ protected:
     
     ofVec3f translation, clicTranslation;
     ofParameter<bool> bEnableMouse;
-    ofParameter<float> dragSensitivity, scrollSensitivity, drag;
-    ofParameter<float> farClip, nearClip;
+    ofParameter<float> dragSensitivity, scrollSensitivity, drag, farClip, nearClip;
     
     ofVec2f prevMouse, clicPoint;
  
