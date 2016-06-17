@@ -1,17 +1,19 @@
 //
 //  2DCam.h
-//  emptyExample
+//  This addon is for navigating through a 3D scene using an orthographic projection, so that it looks like 2D, or any 2D scene.
+//  This should be used instead of ofEasyCam when using an ortho projection or when drawing 2D, as ofEasyCam's controls are not well suited for such task.
+//  The user can change the position from where the scene is being looked. TOP, BOTTOM, LEFT, RIGHT, FRONT (default), BACK.
+//
 //
 //  Created by Roy Macdonald on 27-06-15.
 //
 //
 
 #pragma once
-
 #include "ofMain.h"
 
 
-class ofx2DCam {//: public ofCamera {
+class ofx2DCam {
 public:
     
     enum LookAt{
@@ -28,46 +30,50 @@ public:
     virtual void begin(ofRectangle viewport = ofGetCurrentViewport());
     virtual void end();
     void reset();
-
-    void setDrag(float drag);
-    float getDrag() const;
-
-    void enableMouseInput();
+    //-------   mouse
+    void enableMouseInput(bool e = true);
     void disableMouseInput();
     bool getMouseInputEnabled();
-    
-    ofVec3f getTranslation(){return translation;}
-    float getScale(){return scale;}
-
-    ofVec3f screenToWorld(ofVec3f screen);
-    
-    void setLookAt(LookAt l);
-    
-    LookAt getLookAt();
-    
-    void setFarClip(float far);
-    void setNearClip(float near);
-    
-    float getNearClip(){return nearClip;}
-    float getFarClip(){return farClip;}
     
     void mousePressed(ofMouseEventArgs & mouse);
     void mouseReleased(ofMouseEventArgs & mouse);
     void mouseDragged(ofMouseEventArgs & mouse);
     void mouseScrolled(ofMouseEventArgs & mouse);
+
+    //-------   getters/setters
+    ofVec3f getTranslation(){return translation;}
+    float getScale(){return scale;}
+    
+    void setLookAt(LookAt l);
+    LookAt getLookAt();
     
     void update();
     void drawDebug();
     
     void setDragSensitivity(float s);
-    void  setScrollSensitivity(float s);
-    float getScrollSensitivity(){return scrollSensitivity;}
     float getDragSensitivity(){return dragSensitivity;}
     
+    void  setScrollSensitivity(float s);
+    float getScrollSensitivity(){return scrollSensitivity;}
+
+    void setDrag(float drag);
+    float getDrag() const;
+
+    void setNearClip(float near);
+    float getNearClip(){return nearClip;}
+    
+    void setFarClip(float far);
+    float getFarClip(){return farClip;}
+    
+    //-------   parameters
+    ofParameterGroup parameters;
+
+    //-------   utils
+    ofVec3f screenToWorld(ofVec3f screen);
 protected:
 
     ofVec3f orientation;
-    
+    void enableMouseInputCB(bool &e);
     ofRectangle viewport;
     bool bApplyInertia;
     bool bDoTranslate;
@@ -76,20 +82,18 @@ protected:
     bool bMouseInputEnabled;
     bool bDistanceSet;
     bool bEventsSet;
-    float drag;
     ofVec3f move;
     float scale, clicScale;
     
     ofVec3f translation, clicTranslation;
-    
-    float dragSensitivity, scrollSensitivity;
+    ofParameter<bool> bEnableMouse;
+    ofParameter<float> dragSensitivity, scrollSensitivity, drag;
+    ofParameter<float> farClip, nearClip;
     
     ofVec2f prevMouse, clicPoint;
  
     ofVec2f mouseVel;
     
-    float farClip, nearClip;
-
     void update(ofEventArgs & args);
     
     void updateMouse();
@@ -101,4 +105,8 @@ protected:
     LookAt lookAt;
     
     static ofMatrix4x4 FM, BM, LM, RM, TM, BoM;
+    
+private:
+ 
+    
 };

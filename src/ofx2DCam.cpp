@@ -57,7 +57,9 @@ ofx2DCam::ofx2DCam(){
     scrollSensitivity = 10;
     
     reset();
-
+    parameters.setName("ofx2Dcam");
+    parameters.add(bEnableMouse.set("Enable Mouse Input", false));
+    bEnableMouse.addListener(this, &ofx2DCam::enableMouseInputCB);
     enableMouseInput();
 
 }
@@ -154,26 +156,34 @@ void ofx2DCam::setDrag(float drag){this->drag = drag;}
 //----------------------------------------
 float ofx2DCam::getDrag() const{return drag;}
 //----------------------------------------
-void ofx2DCam::enableMouseInput(){
-    if(!bMouseInputEnabled){
+void ofx2DCam::enableMouseInputCB(bool &e){
+    enableMouseInput(e);
+}
+//----------------------------------------
+void ofx2DCam::enableMouseInput(bool e){
+    if(bMouseInputEnabled != e ){
+        if(e){
         ofAddListener(ofEvents().update, this, &ofx2DCam::update);
         ofAddListener(ofEvents().mouseDragged , this, &ofx2DCam::mouseDragged);
         ofAddListener(ofEvents().mousePressed, this, &ofx2DCam::mousePressed);
         ofAddListener(ofEvents().mouseReleased, this, &ofx2DCam::mouseReleased);
         ofAddListener(ofEvents().mouseScrolled, this, &ofx2DCam::mouseScrolled);
+        }else{
+            ofRemoveListener(ofEvents().update, this, &ofx2DCam::update);
+            ofRemoveListener(ofEvents().mouseDragged, this, &ofx2DCam::mouseDragged);
+            ofRemoveListener(ofEvents().mousePressed, this, &ofx2DCam::mousePressed);
+            ofRemoveListener(ofEvents().mouseReleased, this, &ofx2DCam::mouseReleased);
+            ofRemoveListener(ofEvents().mouseScrolled, this, &ofx2DCam::mouseScrolled);
+        }
+        bMouseInputEnabled = e;
+        if (bEnableMouse != e) {
+            bEnableMouse = e;
+        }
     }
-    bMouseInputEnabled = true;
 }
 //----------------------------------------
 void ofx2DCam::disableMouseInput(){
-    if(bMouseInputEnabled){
-        ofRemoveListener(ofEvents().update, this, &ofx2DCam::update);
-        ofRemoveListener(ofEvents().mouseDragged, this, &ofx2DCam::mouseDragged);
-        ofRemoveListener(ofEvents().mousePressed, this, &ofx2DCam::mousePressed);
-        ofRemoveListener(ofEvents().mouseReleased, this, &ofx2DCam::mouseReleased);
-        ofRemoveListener(ofEvents().mouseScrolled, this, &ofx2DCam::mouseScrolled);
-    }
-    bMouseInputEnabled = false;
+    enableMouseInput(false);
 }
 //----------------------------------------
 bool ofx2DCam::getMouseInputEnabled(){
@@ -253,7 +263,7 @@ void ofx2DCam::update(){
         if(bDoTranslate){
             translation += ofVec3f(move.x , move.y, 0);
         }else if(bDoScale){
-            scale+= move.z;
+            scale += move.z + move.z*scale;
             translation = clicTranslation - clicPoint*(scale - clicScale);
         }
         if(!bApplyInertia){
