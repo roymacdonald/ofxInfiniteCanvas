@@ -55,8 +55,8 @@ void ofApp::draw(){
     if (bUseEasyCam) {
         str += "ofEasyCam";
     }else{
-        str += "ofx2DCam\n\n";
-        str += "ofx2DCam use:\n";
+        str += "ofxInfiniteCanvas\n\n";
+        str += "ofxInfiniteCanvas use:\n";
         str += "    Drag mouse with:\n";
         str += "        Left Button: move\n";
         str += "        Right button: zoom\n";
@@ -72,22 +72,22 @@ void ofApp::draw(){
         str += "Current LookAt: ";
         
         switch (cam.getLookAt()) {
-            case ofx2DCam::OFX2DCAM_FRONT:
+            case ofxInfiniteCanvas::OFX2DCAM_FRONT:
                 str+="FRONT";
                 break;
-            case ofx2DCam::OFX2DCAM_BACK:
+            case ofxInfiniteCanvas::OFX2DCAM_BACK:
                 str+="BACK";
                 break;
-            case ofx2DCam::OFX2DCAM_LEFT:
+            case ofxInfiniteCanvas::OFX2DCAM_LEFT:
                 str+="LEFT";
                 break;
-            case ofx2DCam::OFX2DCAM_RIGHT:
+            case ofxInfiniteCanvas::OFX2DCAM_RIGHT:
                 str+="RIGHT";
                 break;
-            case ofx2DCam::OFX2DCAM_TOP:
+            case ofxInfiniteCanvas::OFX2DCAM_TOP:
                 str+="TOP";
                 break;
-            case ofx2DCam::OFX2DCAM_BOTTOM:
+            case ofxInfiniteCanvas::OFX2DCAM_BOTTOM:
                 str+="BOTTOM";
                 break;
             default:
@@ -98,7 +98,7 @@ void ofApp::draw(){
     ofDrawBitmapStringHighlight(str, 4,28);
     
     str="Press the spacebar to switch between\n";
-    str += "projective ofEasyCam and orthogonal ofx2DCam.\n";
+    str += "projective ofEasyCam and orthogonal ofxInfiniteCanvas.\n";
     ofDrawBitmapStringHighlight(str, 4,12, ofColor::magenta, ofColor::black);
 
 
@@ -124,17 +124,17 @@ void ofApp::keyReleased(int key){
         bUseEasyCam ^= true;
     }
     if (key == 'a') {
-        cam.setLookAt(ofx2DCam::OFX2DCAM_LEFT);
+        cam.setLookAt(ofxInfiniteCanvas::OFX2DCAM_LEFT);
     }else if (key == 's') {
-        cam.setLookAt(ofx2DCam::OFX2DCAM_FRONT);
+        cam.setLookAt(ofxInfiniteCanvas::OFX2DCAM_FRONT);
     }else if (key == 'd') {
-        cam.setLookAt(ofx2DCam::OFX2DCAM_RIGHT);
+        cam.setLookAt(ofxInfiniteCanvas::OFX2DCAM_RIGHT);
     }else if (key == 'w') {
-        cam.setLookAt(ofx2DCam::OFX2DCAM_TOP);
+        cam.setLookAt(ofxInfiniteCanvas::OFX2DCAM_TOP);
     }else if (key == 'x') {
-        cam.setLookAt(ofx2DCam::OFX2DCAM_BOTTOM);
+        cam.setLookAt(ofxInfiniteCanvas::OFX2DCAM_BOTTOM);
     }else if (key == 'z') {
-        cam.setLookAt(ofx2DCam::OFX2DCAM_BACK);
+        cam.setLookAt(ofxInfiniteCanvas::OFX2DCAM_BACK);
     }
     
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>9F48911B-859A-4218-8618-BD3D7B522930</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ofx2DCamExample</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>DAFB6CE067F50E3E7780A90F55796AE85A57057A</key>
+		<string>https://github.com/roymacdonald/ofx2DCam.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ofx2DCamExample/ofx2DCamExample.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>DAFB6CE067F50E3E7780A90F55796AE85A57057A</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/roymacdonald/ofx2DCam.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>DAFB6CE067F50E3E7780A90F55796AE85A57057A</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>DAFB6CE067F50E3E7780A90F55796AE85A57057A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofx2DCam</string>
+		</dict>
+	</array>
+</dict>
+</plist>

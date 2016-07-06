@@ -13,7 +13,7 @@
 #include "ofMain.h"
 
 
-class ofx2DCam {
+class ofxInfiniteCanvas {
 public:
     
     enum LookAt{
@@ -24,8 +24,8 @@ public:
         OFX2DCAM_TOP,
         OFX2DCAM_BOTTOM
     };
-    ofx2DCam();
-    ~ofx2DCam();
+    ofxInfiniteCanvas();
+    ~ofxInfiniteCanvas();
     
     virtual void begin(ofRectangle viewport = ofGetCurrentViewport());
     virtual void end();
@@ -39,6 +39,10 @@ public:
     void mouseReleased(ofMouseEventArgs & mouse);
     void mouseDragged(ofMouseEventArgs & mouse);
     void mouseScrolled(ofMouseEventArgs & mouse);
+//    bool mousePressed(ofMouseEventArgs & mouse);
+//    bool mouseReleased(ofMouseEventArgs & mouse);
+//    bool mouseDragged(ofMouseEventArgs & mouse);
+//    bool mouseScrolled(ofMouseEventArgs & mouse);
 
     //-------   getters/setters
     ofVec3f getTranslation(){return translation;}
@@ -64,12 +68,16 @@ public:
     
     void setFarClip(float far);
     float getFarClip(){return farClip;}
-    
+
+    void setOverrideMouse(bool b);
+    bool isMouseOverride(){return bMouseOverride;}
     //-------   parameters
     ofParameterGroup parameters;
 
     //-------   utils
     ofVec3f screenToWorld(ofVec3f screen);
+
+    
 protected:
 
     ofVec3f orientation;
@@ -89,6 +97,13 @@ protected:
     ofParameter<bool> bEnableMouse;
     ofParameter<float> dragSensitivity, scrollSensitivity, drag, farClip, nearClip;
     
+    bool bMouseOverride;
+    ofMouseEventArgs lastMouseDragged, lastMousePressed, lastMouseReleased, lastMouseScrolled;
+    bool bNotifyMouseDragged, bNotifyMousePressed, bNotifyMouseReleased, bNotifyMouseScrolled;
+    
+    
+    void enableMouseListeners(bool e = true);
+    bool bMouseListenersEnabled;
     ofVec2f prevMouse, clicPoint;
  
     ofVec2f mouseVel;

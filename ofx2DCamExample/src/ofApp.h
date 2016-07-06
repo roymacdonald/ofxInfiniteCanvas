@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofx2DCam.h"
+#include "ofxInfiniteCanvas.h"
 class ofApp : public ofBaseApp{
 	public:
 		void setup();
@@ -20,7 +20,7 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
-    ofx2DCam cam;
+    ofxInfiniteCanvas cam;
     ofEasyCam easyCam;
     
     bool bUseEasyCam;
