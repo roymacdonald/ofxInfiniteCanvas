@@ -376,3 +376,10 @@ ofVec3f ofxInfiniteCanvas::screenToWorld(ofVec3f screen){
     s /= scale;
     return s;
 }
+
+ofVec3f ofxInfiniteCanvas::worldToScreen(ofVec3f world){
+	ofVec3f s = world * scale;
+	s = s * orientationMatrix.getInverse();
+	s = s + translation + ofVec3f(viewport.x, viewport.y);
+	return s;
+}

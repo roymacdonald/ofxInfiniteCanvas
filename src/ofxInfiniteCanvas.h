@@ -76,6 +76,7 @@ public:
 
     //-------   utils
     ofVec3f screenToWorld(ofVec3f screen);
+	ofVec3f worldToScreen(ofVec3f world);
 
     
 protected:
