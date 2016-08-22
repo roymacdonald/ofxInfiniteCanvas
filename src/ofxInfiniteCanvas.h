@@ -63,10 +63,10 @@ public:
     void setDrag(float drag);
     float getDrag() const;
 
-    void setNearClip(float near);
+    void setNearClip(float nc);
     float getNearClip(){return nearClip;}
     
-    void setFarClip(float far);
+    void setFarClip(float fc);
     float getFarClip(){return farClip;}
 
     void setOverrideMouse(bool b);

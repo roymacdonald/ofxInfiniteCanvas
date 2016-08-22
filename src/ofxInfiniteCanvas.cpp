@@ -114,12 +114,12 @@ void ofxInfiniteCanvas::end(){
     ofPopView();
 }
 //----------------------------------------
-void ofxInfiniteCanvas::setFarClip(float far){
-    farClip = far;
+void ofxInfiniteCanvas::setFarClip(float fc){
+    farClip = fc;
 }
 //----------------------------------------
-void ofxInfiniteCanvas::setNearClip(float near){
-    nearClip = near;
+void ofxInfiniteCanvas::setNearClip(float nc){
+    nearClip = nc;
 }
 //----------------------------------------
 void ofxInfiniteCanvas::setDragSensitivity(float s){
