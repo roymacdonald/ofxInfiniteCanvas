@@ -114,12 +114,12 @@ void ofxInfiniteCanvas::end(){
     ofPopView();
 }
 //----------------------------------------
-void ofxInfiniteCanvas::setFarClip(float far){
-    farClip = far;
+void ofxInfiniteCanvas::setFarClip(float fc){
+    farClip = fc;
 }
 //----------------------------------------
-void ofxInfiniteCanvas::setNearClip(float near){
-    nearClip = near;
+void ofxInfiniteCanvas::setNearClip(float nc){
+    nearClip = nc;
 }
 //----------------------------------------
 void ofxInfiniteCanvas::setDragSensitivity(float s){
@@ -375,4 +375,11 @@ ofVec3f ofxInfiniteCanvas::screenToWorld(ofVec3f screen){
     s = s*orientationMatrix;
     s /= scale;
     return s;
+}
+
+ofVec3f ofxInfiniteCanvas::worldToScreen(ofVec3f world){
+	ofVec3f s = world * scale;
+	s = s * orientationMatrix.getInverse();
+	s = s + translation + ofVec3f(viewport.x, viewport.y);
+	return s;
 }
