@@ -61,6 +61,7 @@ ofxInfiniteCanvas::ofxInfiniteCanvas(){
     parameters.add(drag.set("Drag", 0.9, 0, 1));
     parameters.add(farClip.set("Far Clip", 2000, 5000, 10000));
     parameters.add(nearClip.set("Near Clip", -1000, -5000, 10000));
+    parameters.add(bFlipY.set("Flip Y axis", false));
     
     bEnableMouse.addListener(this, &ofxInfiniteCanvas::enableMouseInputCB);
     enableMouseInput();
@@ -101,7 +102,7 @@ void ofxInfiniteCanvas::begin(ofRectangle _viewport){
     ofRotateY(orientation.y);
     
     ofTranslate(translation*orientationMatrix);
-    ofScale(scale,scale,scale);
+    ofScale(scale,scale * (bFlipY?-1:1),scale);
     
 }
 //----------------------------------------
@@ -160,6 +161,10 @@ void ofxInfiniteCanvas::setLookAt(LookAt l){
         default:
             break;
     }
+}
+//----------------------------------------
+void ofxInfiniteCanvas::setFlipY(bool bFlipped){
+    bFlipY.set(bFlipped);
 }
 //----------------------------------------
 void ofxInfiniteCanvas::setDrag(float drag){this->drag = drag;}

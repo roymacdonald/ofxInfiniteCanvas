@@ -45,6 +45,8 @@ public:
 //    bool mouseScrolled(ofMouseEventArgs & mouse);
 
     //-------   getters/setters
+    void setFlipY(bool bFlipped);
+    bool getYFlipped(){return bFlipY;}
     ofVec3f getTranslation(){return translation;}
     float getScale(){return scale;}
     
@@ -95,7 +97,7 @@ protected:
     float scale, clicScale;
     
     ofVec3f translation, clicTranslation;
-    ofParameter<bool> bEnableMouse;
+    ofParameter<bool> bEnableMouse,bFlipY;
     ofParameter<float> dragSensitivity, scrollSensitivity, drag, farClip, nearClip;
     
     bool bMouseOverride;

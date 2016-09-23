@@ -4,7 +4,7 @@
 void ofApp::setup(){
     
     bUseEasyCam = false;
-    
+    cam.setFlipY(true);//flip the Y axis so it matches OF's default inverted Y axis of ofCamera (and ofEasyCam).
 }
 
 //--------------------------------------------------------------
@@ -44,7 +44,7 @@ void ofApp::draw(){
     
     
     
-    ofDrawGrid(20,10);
+    ofDrawGrid(20,10,true,true,true,true);
     ofDisableDepthTest();
     if (bUseEasyCam) {
         easyCam.end();
