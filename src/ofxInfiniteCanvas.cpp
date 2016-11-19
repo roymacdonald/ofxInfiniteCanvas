@@ -54,7 +54,7 @@ ofxInfiniteCanvas::ofxInfiniteCanvas(){
     bDoScale = false;
     
     reset();
-    parameters.setName("ofx2Dcam");
+    parameters.setName("ofxInfiniteCanvas");
     parameters.add(bEnableMouse.set("Enable Mouse Input", false));
     parameters.add(dragSensitivity.set("Drag Sensitivity", 1, 0, 3));
     parameters.add(scrollSensitivity.set("Scroll Sensitivity", 10, 0, 30));
@@ -65,7 +65,36 @@ ofxInfiniteCanvas::ofxInfiniteCanvas(){
     
     bEnableMouse.addListener(this, &ofxInfiniteCanvas::enableMouseInputCB);
     enableMouseInput();
-    
+	
+	protectedParameters.setName("ofxInfiniteCanvasParams");
+	scale.setName("Scale");
+	protectedParameters.add(scale);
+	translation.setName("translation");
+	protectedParameters.add(translation);
+	lookAt.setName("Look At");
+	protectedParameters.add(lookAt);
+	protectedParameters.add(parameters);
+}
+//----------------------------------------
+void ofxInfiniteCanvas::save(string path){
+	ofXml xml;
+	xml.serialize(protectedParameters);
+	//cout << "params at save: " << ofToString(protectedParameters) << endl;
+	xml.save(path);
+}
+//----------------------------------------
+bool ofxInfiniteCanvas::load(string path){
+	ofFile f(path);
+	if (f.exists()) {
+		reset();
+		ofXml xml;
+		xml.load(path);
+		xml.deserialize(protectedParameters);
+		setLookAt(getLookAt());
+	//cout << "params loaded: " << ofToString(protectedParameters) << endl;
+		return true;
+	}
+	return false;
 }
 //----------------------------------------
 ofxInfiniteCanvas::~ofxInfiniteCanvas(){
@@ -107,7 +136,7 @@ void ofxInfiniteCanvas::begin(ofRectangle _viewport){
 }
 //----------------------------------------
 ofxInfiniteCanvas::LookAt ofxInfiniteCanvas::getLookAt(){
-    return lookAt;
+    return (LookAt)lookAt.get();
 }
 //----------------------------------------
 void ofxInfiniteCanvas::end(){
@@ -171,6 +200,14 @@ void ofxInfiniteCanvas::setDrag(float drag){this->drag = drag;}
 //----------------------------------------
 float ofxInfiniteCanvas::getDrag() const{return drag;}
 //----------------------------------------
+void ofxInfiniteCanvas::setTranslation(ofVec3f t){
+	translation = t;
+}
+//----------------------------------------
+void ofxInfiniteCanvas::setScale(float s){
+	scale = s;
+}
+//----------------------------------------
 void ofxInfiniteCanvas::enableMouseInputCB(bool &e){
     enableMouseInput(e);
 }
@@ -226,7 +263,7 @@ void ofxInfiniteCanvas::mousePressed(ofMouseEventArgs & mouse){
             bDoTranslate =(mouse.button == OF_MOUSE_BUTTON_LEFT);
             bDoScale =(mouse.button == OF_MOUSE_BUTTON_RIGHT);
             bApplyInertia = false;
-            clicPoint = mouse - translation - ofVec3f(viewport.x, viewport.y);
+            clicPoint = mouse - translation.get() - ofVec3f(viewport.x, viewport.y);
             clicPoint /= scale;
             
             //clicPoint = screenToWorld(mouse);
@@ -294,7 +331,7 @@ void ofxInfiniteCanvas::mouseScrolled(ofMouseEventArgs & mouse){
         move.z = scrollSensitivity * mouse.scrollY / ofGetHeight();
         bDoTranslate = false;
         bDoScale = true;
-        clicPoint = ofVec2f(ofGetMouseX(), ofGetMouseY()) - translation - ofVec3f(viewport.x, viewport.y);
+        clicPoint = ofVec2f(ofGetMouseX(), ofGetMouseY()) - translation.get() - ofVec3f(viewport.x, viewport.y);
         clicPoint /= scale;
         
         clicScale = scale;

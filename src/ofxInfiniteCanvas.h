@@ -48,7 +48,9 @@ public:
     void setFlipY(bool bFlipped);
     bool getYFlipped(){return bFlipY;}
     ofVec3f getTranslation(){return translation;}
-    float getScale(){return scale;}
+	void setTranslation(ofVec3f t);
+	float getScale(){return scale;}
+	void setScale(float s);
     
     void setLookAt(LookAt l);
     LookAt getLookAt();
@@ -80,7 +82,8 @@ public:
     ofVec3f screenToWorld(ofVec3f screen);
 	ofVec3f worldToScreen(ofVec3f world);
 
-    
+	void save(string path);
+	bool load(string path);
 protected:
 
     ofVec3f orientation;
@@ -94,9 +97,12 @@ protected:
     bool bDistanceSet;
     bool bEventsSet;
     ofVec3f move;
-    float scale, clicScale;
-    
-    ofVec3f translation, clicTranslation;
+	ofParameter<float> scale;
+    float clicScale;
+	
+	ofParameterGroup protectedParameters;
+	ofParameter<ofVec3f>translation;
+    ofVec3f clicTranslation;
     ofParameter<bool> bEnableMouse,bFlipY;
     ofParameter<float> dragSensitivity, scrollSensitivity, drag, farClip, nearClip;
     
@@ -119,7 +125,7 @@ protected:
     
     unsigned long lastTap;
     
-    LookAt lookAt;
+    ofParameter<int> lookAt;
     
     static ofMatrix4x4 FM, BM, LM, RM, TM, BoM;
     
