@@ -416,6 +416,7 @@ ofVec3f ofxInfiniteCanvas::screenToWorld(ofVec3f screen){
     ofVec3f s = screen - translation - ofVec3f(viewport.x, viewport.y);
     s = s*orientationMatrix;
     s /= scale;
+	if(bFlipY)s.y*=-1;
     return s;
 }
 
