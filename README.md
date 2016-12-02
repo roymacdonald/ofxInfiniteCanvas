@@ -2,14 +2,14 @@
 Infinitely zoomable and scrollable 2D canvas addon for openFrameworks.
 
 
-###Usage
+##Usage
 It is really simple to use, quite much as ofEasyCam.
 
 You can also change the lookAt position so this will emulate the left, right, top, bottom, front and back orthographic projections like in 3D CAD software.
 
 Check the examples.
 
-####Available Methods
+###Available Methods
 **begin and end**
 Like the other cameras in OF. What you want to be seen by this camera must be drawn after calling begin() and befor calling end(). You must call both for it's correct functioning.
 Optionally  you can pass an ofRectangle to the begin() method for it to be the viewport. This means that all will be drawn inside such rectangle and mouse interactions will only happen inside of it.
@@ -46,7 +46,7 @@ Example:
     void disableMouseInput();
     bool getMouseInputEnabled();
 
-####Avalible Parameters
+###Avalible Parameters
 **FlipY** 
 just flips the Y coordinates to match your need (OF and openGL are Y flipped related to each other, so this might get handy sometimes. )
 
@@ -111,7 +111,7 @@ Defaults are far 2000 and near -1000. The latter  means that objects behind the 
     void setFarClip(float fc);
     float getFarClip(){return farClip;}
 
-####GUI
+###GUI
 All the previous parameters can be used super easily with ofxGui.
 For such there is the following property, which has been already set up for you.
 
@@ -146,7 +146,7 @@ On ofApp.cpp
 		
 	}
 	
-####Utilities
+###Utilities
     
 **coordinate space conversion.**
 So if you want to know the real cordinates of something onscreen, like your mouse pointer you will use screenToWorld. Pass the screen coordinates and you will get the world coordinates.
@@ -185,7 +185,7 @@ The filename must end with ".xml"
 
 
 	
-####Other Methods
+###Other Methods
 **Update**
 Might be useful if you need to override it somehow, but for everyday use you souldn't worry as it is handled internally.
 
@@ -196,7 +196,7 @@ It will draw onscreen the current translation, scale and clicPoint (where you cl
 
     void drawDebug();
 
-####Experimental
+###Experimental
 Try this one at your own risk ;)
 If set to true it will override ALL of openFrameworks mouse events so these are in world space and not screen space, so you dont need to worry about transforming when you try to hit or grab anything. It is experimental as it kind of hijacks the mouse events and modifies them. I haven't had any problems with it but it might, that's why it is experimental. It will work incorrectly with anything drawn outside the begin() and end(). So, for example if you want to use an ofxGui object, you will have to place it's draw function between begin and end, and not outside.
 
@@ -208,10 +208,11 @@ If set to true it will override ALL of openFrameworks mouse events so these are 
 
 
 
-###Compatibility
-Developed using the current head from github, but should work with older versions.
+##Compatibility
+Developed with OF 0.9.3, but should work with either newer or older versions.
 
-###Notes
+
+##Notes
 
 This addon used to be called ofx2DCam. I changed the name as this is more catchy :) as well as it reflects better the idea of the addon.
 If you have ofx2DCam addon installed, remove it and install this one, as it will not be updated any longer.
