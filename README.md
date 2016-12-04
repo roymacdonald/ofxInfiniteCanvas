@@ -67,6 +67,8 @@ Use the following to set this cameras position programatically. Make it follow s
 There are 6 possible lookAt positions (places from where you look at the scene).
 If you had a cube, which has 6 faces, if you kept it still, you could easily say wich are the front, back, left, right, top and bottom faces from your point of view. These also happen to be somehow the world coordinates on your screen. So if you stay in that position you could tell the camera that you want to lookAt the front of that cube, or the left side of it, or wich ever. Some drawings might be better..
 
+![image](./drawing2.jpg)
+
     void setLookAt(LookAt l);
     LookAt getLookAt();
 	
@@ -81,8 +83,9 @@ If you had a cube, which has 6 faces, if you kept it still, you could easily say
 Example:
 
 	ofxInfiniteCanvas cam;// I just got used to call it cam and not canvas. sorry.
-	cam.setLookAt(OFX2DCAM_LEFT);
-	
+	cam.setLookAt(OFX2DCAM_TOP);
+	Which would be somehting like this.
+	![image](./drawing1.jpg)
 **drag Sensitivity**
 	Use it to set the sensitivity (how fast or slow) when zooming by dragging with the right mouse button. default is 1.
 
