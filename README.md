@@ -85,7 +85,9 @@ Example:
 	ofxInfiniteCanvas cam;// I just got used to call it cam and not canvas. sorry.
 	cam.setLookAt(OFX2DCAM_TOP);
 	Which would be somehting like this.
+	
 	![image](./drawing1.jpg)
+
 **drag Sensitivity**
 	Use it to set the sensitivity (how fast or slow) when zooming by dragging with the right mouse button. default is 1.
 
