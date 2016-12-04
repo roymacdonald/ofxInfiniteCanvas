@@ -86,7 +86,7 @@ Example:
 	cam.setLookAt(OFX2DCAM_TOP);
 	Which would be somehting like this.
 	
-	![image](./drawing1.jpg)
+![image](./drawing1.jpg)
 
 **drag Sensitivity**
 	Use it to set the sensitivity (how fast or slow) when zooming by dragging with the right mouse button. default is 1.
