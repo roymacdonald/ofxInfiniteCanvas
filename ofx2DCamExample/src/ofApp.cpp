@@ -4,7 +4,8 @@
 void ofApp::setup(){
     
     bUseEasyCam = false;
-    cam.setFlipY(true);//flip the Y axis so it matches OF's default inverted Y axis of ofCamera (and ofEasyCam).
+    //cam.setFlipY(true);//flip the Y axis so it matches OF's default inverted Y axis of ofCamera (and ofEasyCam).
+    easyCam.enableOrtho();
 }
 
 //--------------------------------------------------------------
@@ -51,6 +52,8 @@ void ofApp::draw(){
     }else{
         cam.end();
     }
+    cam.drawDebug();
+    /*
     string str = "Currently using: ";
     if (bUseEasyCam) {
         str += "ofEasyCam";
@@ -100,7 +103,7 @@ void ofApp::draw(){
     str="Press the spacebar to switch between\n";
     str += "projective ofEasyCam and orthogonal ofxInfiniteCanvas.\n";
     ofDrawBitmapStringHighlight(str, 4,12, ofColor::magenta, ofColor::black);
-
+//*/
 
 }
 
@@ -112,7 +115,9 @@ void ofApp::keyPressed(int key){
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
     if (key == ' ') {
-        
+        cam.toggleOfCam();
+    }
+    if (key == 'c') {
         if (bUseEasyCam) {
             easyCam.disableMouseInput();
             cam.enableMouseInput();
