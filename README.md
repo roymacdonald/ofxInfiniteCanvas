@@ -1,6 +1,35 @@
 # ofxInfiniteCanvas
 Infinitely zoomable and scrollable 2D canvas addon for openFrameworks.
 
+#IMPORTANT!
+You can achieve almost the same functionality of this addon when using openFrameworks 0.10 or newer. 
+
+
+For such you'll need to use an `ofEasyCam` object.
+The major difference is that you'll NOT be able to save or load and use the `lookAt(...)` function as it is used in this addon. Although `ofEasycam` has a `lookAt(...)` function (inherited from `ofNode`) it will not behave in the same way.
+
+Example:
+
+In the `ofApp.h` file declare an `ofEasyCam` object
+
+`ofEasyCam cam;`
+
+Then in the `ofApp.cpp` in 
+
+    ofApp::setup(){
+        // here also goes what ever else you need to setup of course
+
+        cam.removeAllInteractions();
+        cam.addInteraction(ofEasyCam::TRANSFORM_TRANSLATE_XY,OF_MOUSE_BUTTON_LEFT);
+        cam.addInteraction(ofEasyCam::TRANSFORM_TRANSLATE_Z, OF_MOUSE_BUTTON_RIGHT);
+		
+        cam.enableOrtho();
+        cam.setNearClip(-1000000);
+        cam.setFarClip(1000000);
+        cam.setVFlip(true);
+
+    }
+
 
 ## Usage
 It is really simple to use, quite much as ofEasyCam.
